@@ -15,23 +15,30 @@
    
    email : p12218319@myemail.dmu.ac.uk
 */
-#ifndef P12218319_CIO_PROBLEM_HPP
-#define P12218319_CIO_PROBLEM_HPP
+#ifndef P12218319_CIO_ALGORITHM_HPP
+#define P12218319_CIO_ALGORITHM_HPP
 
-#include <cmath>
-#include "P12218319\core\core.hpp"
+#include <vector>
+#include "..\benchmarks\Problem.hpp"
+
 
 namespace P12218319 { namespace cio {
+	typedef std::vector<double> FTrend;
+
 	template<const uint32_t DIMENTIONS>
-	class P12218319_EXPORT_API Problem {
+	class P12218319_EXPORT_API Algorithm {
 	public:
-		typedef double InputArray[DIMENTIONS];
-		typedef double BoundArray[DIMENTIONS][2];
-	private:
-		BoundArray mBounds;
+		enum {
+			MAX_PARAMS = 16
+		};
+	protected:
+		double mParams[MAX_PARAMS];
+		double mBounds[DIMENTIONS][0];
+	protected:
+		double P12218319_CALL GenerateRandomSolution(BoundArray&) const;
 	public:
-		virtual P12218319_CALL ~Problem(){}
-		virtual double P12218319_CALL operator()(InputArray& x) const override throw() = 0;
+		virtual P12218319_CALL ~Algorithm() {}
+		virtual FTrend P12218319_CALL operator()(const Problem<DIMENTIONS>&, const uint32_t) const = 0;
 	};
 }}
 
